@@ -3,6 +3,7 @@
     <div id="nav">
       <router-link to="/">Home</router-link><span> | </span>
       <router-link to="/cirlces1">Circles 1</router-link><span> | </span>
+      <router-link to="/sinwave">Sin Wave</router-link><span> | </span>
     </div>
     <router-view/>
   </div>

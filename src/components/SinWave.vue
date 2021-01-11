@@ -23,23 +23,32 @@ export default {
       this.b = Math.abs(Math.sin(this.increment*4) * 255);
       this.c.strokeStyle = `rgba(${this.r},${this.g},${this.b},.5)`;
       this.c.stroke();
+
       this.increment += this.wave.frequency;
+      //move amplitude up and down
       if(this.wave.amplitude > 300) {
         this.ampIncrement = -this.ampIncrement;
-      } else if (this.wave.amplitude <= 0) {
+      } else if (this.wave.amplitude <= 100) {
         this.ampIncrement = -this.ampIncrement;
       }
       this.wave.amplitude += this.ampIncrement;
-      console.log(this.wave.amplitude,this.wave.frequency);
+      // move frequency up and down
+      // if(this.wave.frequency >= 1) {
+      //   this.freqIncrement = -this.freqIncrement;
+      // } else if (this.wave.frequency <= 0) {
+      //   this.freqIncrement = -this.freqIncrement;
+      // }
+      // this.wave.frequency += this.freqIncrement;
+      // console.log(this.wave.amplitude,this.wave.frequency);
     },
-    resetWave: function() {
-      this.canvas.addEventListener('click', function(event) {
-        //get the pixel data from mouse position
-        this.setAmp = event.layerX;
-        this.setFreq = event.layerY / 10;
-        // console.log(this.setAmp,this.setFreq);
-      });
-    }
+    // resetWave: function() {
+    //   this.canvas.addEventListener('click', function(event) {
+    //     //get the pixel data from mouse position
+    //     this.setAmp = event.layerX;
+    //     this.setFreq = event.layerY / 10;
+    //     // console.log(this.setAmp,this.setFreq);
+    //   });
+    // }
   },
   mounted: function() {
     //wave
@@ -49,13 +58,14 @@ export default {
     this.c = this.canvas.getContext('2d');
     this.wave = {
       y: this.innerHeight / 2,
-      length: 0.01,
+      length: this.length,
       amplitude: this.amplitude,
       frequency: this.frequency,
     };
-    this.ampIncrement = 10;
+    this.ampIncrement = 1;
+    this.freqIncrement = .01;
     this.increment = this.wave.frequency;
-    this.resetWave();
+    // this.resetWave();
     this.animate();
   },
   data () {
@@ -63,15 +73,14 @@ export default {
       r: '',
       g: '',
       b: '',
-      setAmp: 100,
-      setFreq: .01,
+      length: 0.01,
+      amplitude: 200,
+      frequency: .01,
     }
   },
   computed: {
     innerWidth: function() { return window.innerWidth; },
     innerHeight: function() { return window.innerHeight; },
-    amplitude: function() { return this.setAmp; },
-    frequency: function() { return this.setFreq / 100; },
   }
 }
 </script>
@@ -81,15 +90,7 @@ export default {
   .wrap {
     width: 100%;
     height: 100%;
-    position: relative;
     background: #000;
   }
-  canvas { 
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .myCanvas {
-    z-index: 100;
-  }
+  canvas { }
 </style>
