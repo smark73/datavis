@@ -1,25 +1,22 @@
 <template>
   <div class="wrap">
-    <canvas v-if="priceData"
-      id="myCanvas" 
-      width="600" 
-      height="200" 
-      style="border:1px solid #ccc;"
-    ></canvas>
-    <button @click="getPrice(ticker)">Get {{ticker}} Prices</button>
-    <div v-if="priceData">
-      <h3>{{priceData.symbol}}</h3>
-      <p>price: {{priceData.price}}</p>
-      <p>change: {{priceData.change}}</p>
-      <p>dayLow: {{priceData.dayLow}}</p>
-      <p>dayHigh: {{priceData.dayHigh}}</p>
-      <p>priceAvg50: {{priceData.priceAvg50}}</p>
-      <p>priceAvg200: {{priceData.priceAvg200}}</p>
-      <p>volume: {{priceData.volume}}</p>
-      <p>avgVolume: {{priceData.avgVolume}}</p>
-      <p>open: {{priceData.open}}</p>
-      <p>previousClose: {{priceData.previousClose}}</p>
+    <div class="left">
+      <button @click="getPrice()">Get {{this.ticker}} Prices</button>
+      <div v-if="priceData">
+        <h3>{{priceData.symbol}}</h3>
+        <p>price: {{priceData.price}}</p>
+        <p>change: {{priceData.change}}</p>
+        <p>dayLow: {{priceData.dayLow}}</p>
+        <p>dayHigh: {{priceData.dayHigh}}</p>
+        <p>priceAvg50: {{priceData.priceAvg50}}</p>
+        <p>priceAvg200: {{priceData.priceAvg200}}</p>
+        <p>volume: {{priceData.volume}}</p>
+        <p>avgVolume: {{priceData.avgVolume}}</p>
+        <p>open: {{priceData.open}}</p>
+        <p>previousClose: {{priceData.previousClose}}</p>
+      </div>
     </div>
+    <canvas v-if="priceData" id="myCanvas" ></canvas>
   </div>
 </template>
 
@@ -53,7 +50,9 @@ export default {
     //   "sharesOutstanding" : 18582057,
     //   "timestamp" : 1609038892
     // } ]
-    getPrice (ticker) {
+    getPrice () {
+      // console.log(this.innerWidth, this.innerHeight);
+      let ticker = this.ticker;
       axios.get(`https://financialmodelingprep.com/api/v3/quote/${ticker}?apikey=ea3335aab1fd5c63804651a91b837d7d`)
         .then(response => {
           // JSON responses are automatically parsed.
@@ -61,41 +60,38 @@ export default {
           // console.log(response.data);
           // console.log(this.priceData);
           // console.log(this.priceData.symbol);
+          this.drawPrice();
         })
         .catch(e => {
           this.errors.push(e)
           // console.log(e);
         })
     },
-    drawPrice (priceData) {
-      let yearHigh = priceData.yearHigh;
-      let yearLow = priceData.yearLow;
-      let dayHigh = priceData.dayHigh;
-      let dayLow = priceData.dayLow;
-      let price = priceData.price;
+    drawPrice () {
+      
+      requestAnimationFrame(this.drawPrice);
+      let yearHigh = this.priceData.yearHigh;
+      let yearLow = this.priceData.yearLow;
 
-      let top = 0;
-      let bottom = 200;
+      // let dayHigh = this.priceData.dayHigh;
+      // let dayLow = this.priceData.dayLow;
+      // let price = this.priceData.price;
 
-      var c = document.getElementById('myCanvas');
-      //create our context element inside the canvas
-      var ctx = c.getContext('2d');
-      // ctx.fillStyle = 'rgb(50,50,50)';
-      width = 600;
-      height = 200;
-      // for (x = 0; x < width; x += 50) {
-        ctx.fillRect(0,0,,200);
+      this.c.fillStyle = ('rgba(0,255,0,1');
+      this.c.fillRect(20, 0, 40, (yearHigh/1000));
 
-        var paintIt = ctx.createImageData();
-        // console.log(r,g,b,a);
-        paintIt.data[0] = r < 255 ? r + 20 : 255 - r;
-        paintIt.data[1] = g < 255 ? g + 25 : 255 - g;
-        paintIt.data[2] = b < 255 ? b + 30 : 255 - b;
-        paintIt.data[3] = a;
-        ctx.putImageData(paintIt, x, y);
+      // this.c.moveTo(100, 0);
 
-      // }
+      this.c.fillStyle = ('rgba(255,0,0,1');
+      this.c.fillRect(50, 0, 70, (yearLow/1000));
+
     },
+  },
+  mounted: function() {
+      this.canvas = document.getElementById('myCanvas');
+      this.canvas.width = this.innerWidth;
+      this.canvas.height = this.innerHeight;
+      this.c = this.canvas.getContext('2d');
   },
   data () {
     return {
@@ -103,12 +99,35 @@ export default {
       ticker: 'BTCUSD',
       errors: []
     }
+  },
+  computed: {
+    innerWidth: function() { return window.innerWidth; },
+    innerHeight: function() { return window.innerHeight; },
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1 { color: gray; }
-.wrap { width: 100%; min-height: 400px; border: 1px solid gray; }
+  h1 { color: gray; }
+  .wrap { 
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    position: relative;
+  }
+  .left {
+    width: 200px;
+    font-size: .8em;
+    position: absolute;
+    left:0;
+    top:0;
+    z-index: 10;
+  }
+  canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
 </style>

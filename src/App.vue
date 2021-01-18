@@ -1,10 +1,13 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <nav id="nav">
       <router-link to="/">Home</router-link><span> | </span>
       <router-link to="/cirlces1">Circles 1</router-link><span> | </span>
-      <router-link to="/sinwave">Sin Wave</router-link><span> | </span>
-    </div>
+      <router-link to="/sinwave">SinWave</router-link><span> | </span>
+      <router-link to="/btcvis">BtcVis</router-link><span> | </span>
+      <router-link to="/squares">Squares</router-link><span> | </span>
+      <router-link to="/datagen">DataGen</router-link><span> | </span>
+    </nav>
     <router-view/>
   </div>
 </template>
@@ -38,5 +41,23 @@ body {
   color: #2c3e50;
   width: 100%;
   height: 100%;
+}
+nav {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: rgba(255,255,255,.7);
+}
+nav a, nav a:hover, nav a:visited {
+  color: black;
+  text-decoration: none;
+}
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
 }
 </style>
