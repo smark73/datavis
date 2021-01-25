@@ -5,6 +5,7 @@ import Circles1 from '../components/Circles1.vue'
 import SinWave from '../components/SinWave.vue'
 import BtcVis from '../components/BtcVis.vue'
 import Squares from '../components/Squares.vue'
+import Triangles from '../components/Triangles.vue'
 import DataGen from '../components/DataGen.vue'
 
 Vue.use(VueRouter)
@@ -29,6 +30,11 @@ const routes = [
     path: '/btcvis',
     name: 'BtcVis',
     component: BtcVis
+  },
+  {
+    path: '/triangles',
+    name: 'Triangles',
+    component: Triangles
   },
   {
     path: '/squares',

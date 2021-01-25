@@ -6,6 +6,7 @@
       <router-link to="/sinwave">SinWave</router-link><span> | </span>
       <router-link to="/btcvis">BtcVis</router-link><span> | </span>
       <router-link to="/squares">Squares</router-link><span> | </span>
+      <router-link to="/triangles">Triangles</router-link><span> | </span>
       <router-link to="/datagen">DataGen</router-link><span> | </span>
     </nav>
     <router-view/>
@@ -48,7 +49,11 @@ nav {
   top: 0;
   left: 0;
   z-index: 10;
-  background: rgba(255,255,255,.7);
+  transition: background 0.5s ease;
+  background: rgba(255,255,255,.1);
+}
+nav:hover {
+  background: rgba(255,255,255,.7)
 }
 nav a, nav a:hover, nav a:visited {
   color: black;

@@ -16,7 +16,7 @@
         <p>previousClose: {{priceData.previousClose}}</p>
       </div>
     </div>
-    <canvas v-if="priceData" id="myCanvas" ></canvas>
+    <canvas id="myCanvas" ></canvas>
   </div>
 </template>
 
@@ -80,7 +80,7 @@ export default {
       this.c.fillStyle = ('rgba(0,255,0,1');
       this.c.fillRect(20, 0, 40, (yearHigh/1000));
 
-      // this.c.moveTo(100, 0);
+      this.c.moveTo(100, 0);
 
       this.c.fillStyle = ('rgba(255,0,0,1');
       this.c.fillRect(50, 0, 70, (yearLow/1000));
@@ -92,6 +92,9 @@ export default {
       this.canvas.width = this.innerWidth;
       this.canvas.height = this.innerHeight;
       this.c = this.canvas.getContext('2d');
+
+      this.c.fillStyle = ('rgba(0,255,0,1');
+      this.c.fillRect(50, 250, 10, 10);
   },
   data () {
     return {
@@ -101,8 +104,8 @@ export default {
     }
   },
   computed: {
-    innerWidth: function() { return window.innerWidth; },
-    innerHeight: function() { return window.innerHeight; },
+    innerWidth: function() { return innerWidth; },
+    innerHeight: function() { return innerHeight; },
   }
 }
 </script>
