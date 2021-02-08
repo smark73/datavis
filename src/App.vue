@@ -6,7 +6,7 @@
       <router-link to="/sinwave">SinWave</router-link><span> | </span>
       <router-link to="/btcvis">BtcVis</router-link><span> | </span>
       <router-link to="/squares">Squares</router-link><span> | </span>
-      <router-link to="/triangles">Triangles</router-link><span> | </span>
+      <router-link to="/tri">Tri</router-link><span> | </span>
       <router-link to="/datagen">DataGen</router-link><span> | </span>
     </nav>
     <router-view/>
