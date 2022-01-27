@@ -1,4 +1,5 @@
 # datavis
+canvas js animation playground with vue
 
 ## Project setup
 ```
