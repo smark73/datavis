@@ -1,19 +1,19 @@
 <template>
   <div class="wrap">
     <div class="left">
-      <button @click="getPrice()">Get {{this.ticker}} Prices</button>
+      <button @click="getPrice()">Get {{ this.ticker }} Prices</button>
       <div v-if="priceData">
-        <h3>{{priceData.symbol}}</h3>
-        <p>price: {{priceData.price}}</p>
-        <p>change: {{priceData.change}}</p>
-        <p>dayLow: {{priceData.dayLow}}</p>
-        <p>dayHigh: {{priceData.dayHigh}}</p>
-        <p>priceAvg50: {{priceData.priceAvg50}}</p>
-        <p>priceAvg200: {{priceData.priceAvg200}}</p>
-        <p>volume: {{priceData.volume}}</p>
-        <p>avgVolume: {{priceData.avgVolume}}</p>
-        <p>open: {{priceData.open}}</p>
-        <p>previousClose: {{priceData.previousClose}}</p>
+        <h3>{{ priceData.symbol }}</h3>
+        <p>price: {{ priceData.price }}</p>
+        <p>change: {{ priceData.change }}</p>
+        <p>dayLow: {{ priceData.dayLow }}</p>
+        <p>dayHigh: {{ priceData.dayHigh }}</p>
+        <p>priceAvg50: {{ priceData.priceAvg50 }}</p>
+        <p>priceAvg200: {{ priceData.priceAvg200 }}</p>
+        <p>volume: {{ priceData.volume }}</p>
+        <p>avgVolume: {{ priceData.avgVolume }}</p>
+        <p>open: {{ priceData.open }}</p>
+        <p>previousClose: {{ priceData.previousClose }}</p>
       </div>
     </div>
     <canvas id="myCanvas" ></canvas>
@@ -64,7 +64,7 @@ export default {
         })
         .catch(e => {
           this.errors.push(e)
-          // console.log(e);
+          console.log(e);
         })
     },
     drawPrice () {
@@ -110,7 +110,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   h1 { color: gray; }
   .wrap { 
@@ -124,7 +123,7 @@ export default {
     font-size: .8em;
     position: absolute;
     left:0;
-    top:0;
+    top:50px;
     z-index: 10;
   }
   canvas {
@@ -133,4 +132,5 @@ export default {
     top: 0;
     z-index: 1;
   }
+  
 </style>

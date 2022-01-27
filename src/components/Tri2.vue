@@ -22,11 +22,12 @@ export default {
       // bg.addColorStop(.5, 'rgba(10,10,10,1');
       // bg.addColorStop(1, 'rgba(50,50,50,.2)');
       // this.c.fillStyle = bg;
+      let shapes = this.shapeArray;
       this.c.fillStyle = 'rgba(50,50,50,1)';
       this.c.fillRect(0,0,this.canvas.width,this.canvas.height);
-      // for(let i = 0; i<this.shapeArray.length; i++){
-      for(let i = 0; i<1; i++){
-        this.shapeArray.forEach(shape => {
+      // for(let i = 0; i<shapes.length; i++){
+      // for(let i = 0; i<1; i++){
+        shapes.forEach(shape => {
           if(shape.curValX <= 0){
             this.removeFromArray();
           } else {
@@ -35,10 +36,10 @@ export default {
             // this.c.restore();
           }
         })
-      }
+      // }
     },
-    Shape(id, dataId, yearlyHigh, yearlyLow, prevHigh, prevLow, currentVal, prevVal, color1, color2, strokeColor, innerWidth, innerHeight, canvas) {
-      this.id = id;
+    Shape(id, dataId, yearlyHigh, yearlyLow, prevHigh, prevLow, prevVal, currentVal, color1, color2, strokeColor, innerWidth, innerHeight, canvas) {
+      // this.id = id;
       this.dataId = dataId;
       this.yearlyHigh = yearlyHigh;
       this.yearlyLow = yearlyLow;
@@ -103,9 +104,9 @@ export default {
         this.canvas.strokeStyle = strokeColor;
         this.canvas.stroke();
         this.canvas.fillStyle = 'white';
-        this.canvas.font = '20px sans-serif';
-        let shapeInfo= this.id + " " + this.dataId;
-        this.canvas.fillText(shapeInfo, this.curValX, this.flipY(this.curValY));
+        // this.canvas.font = '20px sans-serif';
+        // let shapeInfo = this.id + " " + this.dataId + " " + this.currentVal;
+        // this.canvas.fillText(shapeInfo, this.curValX, this.flipY(this.curValY));
         this.canvas.restore();
       }
       this.update = function() {
@@ -117,17 +118,20 @@ export default {
       // console.log(this.shapeArray);
       // console.log(index);
       // this.shapeArray = this.shapeArray.slice(index, index+1);
-      this.shapeArray = this.shapeArray.shift();
+      // this.shapeArray = this.shapeArray.shift();
+      this.shapeArray.slice(1);
       // console.log(this.shapeArray);
     }
   },
   mounted: function() {
+    let windowFocus = true;
+
     window.addEventListener("focus", function(){
-      this.windowFocus = true;
+      windowFocus = true;
       // console.log('ON');
     });
     window.addEventListener("blur", function(){
-      this.windowFocus = false;
+      windowFocus = false;
       // console.log('OFF');
     });
 
@@ -157,7 +161,7 @@ export default {
 
     function pushDataIntoArray(dataIndex) {
       let i = dataIndex;
-      let id = i;
+      // let id = i;
       let yearlyHigh = data[i].yearHigh;
       let yearlyLow = data[i].yearLow;
       let prevHigh = data[i].dayHigh;
@@ -186,7 +190,7 @@ export default {
       // }
 
       shapeArray.push(new shape(
-        id,
+        // id,
         dataId,
         yearlyHigh,
         yearlyLow,
@@ -207,7 +211,7 @@ export default {
     setInterval(function(){
       // console.log(windowFocus);
       // console.log(shapeArray);
-      if(this.windowFocus) {
+      if(windowFocus) {
         pushDataIntoArray(dataIndex);
         if(dataIndex + 1 < data.length) {
           dataIndex++;
@@ -217,7 +221,6 @@ export default {
       }
     }, 5000);
 
-    this.windowFocus = true;
     this.animate(canvas);
   },
   data () {

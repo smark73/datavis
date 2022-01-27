@@ -38,7 +38,7 @@ export default {
       }
     },
     Shape(id, yearlyHigh, yearlyLow, prevHigh, prevLow, currentVal, prevVal, color1, color2, strokeColor, innerWidth, innerHeight, canvas) {
-      this.id = id;
+      // this.id = id;
       this.yearlyHigh = yearlyHigh;
       this.yearlyLow = yearlyLow;
       this.prevHigh = prevHigh;
@@ -84,7 +84,7 @@ export default {
       // console.log('height: ' + this.innerHeight);
 
       this.draw = function() {
-        this.canvas.save();
+        // this.canvas.save();
         //draw triange
         this.canvas.beginPath();
         this.canvas.moveTo(this.yearlyHighX, this.flipY(this.yearlyHighY));
@@ -101,9 +101,9 @@ export default {
         this.canvas.closePath();
         this.canvas.strokeStyle = strokeColor;
         this.canvas.stroke();
-        this.canvas.fillStyle = 'white';
-        this.canvas.font = '20px sans-serif';
-        this.canvas.fillText(this.id, this.curValX, this.flipY(this.curValY));
+        // this.canvas.fillStyle = 'white';
+        // this.canvas.font = '20px sans-serif';
+        // this.canvas.fillText(this.id, this.curValX, this.flipY(this.curValY));
         this.canvas.restore();
       }
       this.update = function() {
@@ -112,7 +112,7 @@ export default {
       }
     },
     removeFromArray (index) {
-      console.log(this.shapeArray);
+      // console.log(this.shapeArray);
       // console.log(index);
       this.shapeArray = this.shapeArray.slice(index, index+1);
       // this.shapeArray = this.shapeArray.shift();
@@ -120,6 +120,7 @@ export default {
     }
   },
   mounted: function() {
+    this.windowFocus = true;
     window.addEventListener("focus", function(){
       this.windowFocus = true;
       // console.log('ON');
@@ -155,7 +156,7 @@ export default {
 
     function pushDataIntoArray(dataIndex) {
       let i = dataIndex;
-      let id = i;
+      // let id = i;
       let yearlyHigh = data[i].yearHigh;
       let yearlyLow = data[i].yearLow;
       let prevHigh = data[i].dayHigh;
@@ -183,7 +184,7 @@ export default {
       // }
 
       shapeArray.push(new shape(
-        id,
+        // id,
         yearlyHigh,
         yearlyLow,
         prevHigh,
@@ -213,7 +214,6 @@ export default {
       }
     }, 5000);
 
-    this.windowFocus = true;
     this.animate(canvas);
   },
   data () {
